@@ -1,13 +1,13 @@
 package com.newyorkinmelbourne.nu_vet;
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends AppCompatActivity {
     private WebView view;
 
     @Override
@@ -15,29 +15,14 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        view = (WebView) this.findViewById(R.id.webView);
-        view.getSettings().setJavaScriptEnabled(true);
-        view.setWebViewClient(new MyBrowser());
-        view.loadUrl("http://www.nu-vet.com"); //nu-vet site
-        view.setWebChromeClient(new WebChromeClient()); // adding js alert support
+        WebView webView = (WebView) findViewById(R.id.webView);
+        webView.loadUrl("https://www.nu-vet.com");
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.setWebViewClient(new WebViewClient());
     }
 
-    private class MyBrowser extends WebViewClient {
-        @Override
-        public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            view.loadUrl(url);
-            return true;
-        }
-    }
 
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
 
-        if ((keyCode == KeyEvent.KEYCODE_BACK) && view.canGoBack()) {
-            view.goBack();
-            return true;
-        }
 
-        return super.onKeyDown(keyCode, event);
-    }
 
 }
